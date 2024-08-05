@@ -1,0 +1,76 @@
+<button type="button" class="btn btn-outline-secondary" id="addProduct" (click)="openModal()"><i class="fa fa-plus" aria-hidden="true"></i> Add Book</button>
+<br>
+<table class="table mt-5 mb-5 table-bordered">
+    <thead class="thead-dark">
+      <tr class="table-secondary">
+    
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">isbn</th>
+        <th scope="col">Publication Date</th>
+        <th scope="col">Publisher</th>
+        <th scope="col">Price</th>
+        <th scope="col">Action</th>
+  
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+       
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.isbn}}</td>
+        <td>{{book.publicationDate}}</td>
+        <td>{{book.publisher}}</td>
+        <td>₹{{book.price}}</td>
+        <td>
+            <!-- Edit icon triggers the modal -->
+            <i class="fa fa-trash" aria-hidden="true" (click)="delete(book)"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+            <i class="fa fa-edit" aria-hidden="true" (click)="openEditModal(book)"></i>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <ng-template #editModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Update Product</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeEditModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="productName">Title:*</label>
+              <input type="text" id="title" formControlName="title" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="author">Author:*</label>
+              <textarea id="author" formControlName="author" class="form-control"></textarea>
+            </div>
+            
+            
+            <div class="form-group">
+              <label for="price">ISbn:*</label>
+              <input type="text" id="isbn" formControlName="isbn" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="publicationDate">Publication Date:*</label>
+              <input type="date" id="publicationDate" formControlName="publicationDate" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="publisher">Publisher:*</label>
+              <input type="text" id="publisher" formControlName="publisher" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="price">Price:*</label>
+              <input type="number" id="price" formControlName="price" class="form-control">
+            </div>
+           
+            
+            <button type="submit" class="btn btn-primary">Update Book</button>
+          </form>
+    </div>
+    
+  </ng-template>
